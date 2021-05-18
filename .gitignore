@@ -1,0 +1,10 @@
+# Intellij
+/.idea/*
+!/.idea/codeStyles/
+*.iml
+*.iws
+
+# Gradle
+.gradle
+build
+out
