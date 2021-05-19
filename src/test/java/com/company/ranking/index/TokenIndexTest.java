@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 
-public class IndexerTest {
+public class TokenIndexTest {
 
-  Indexer indexer = new Indexer();
+  TokensIndex indexer = new TokensIndex();
 
   @Test
   void shouldBuildIndex() {
@@ -19,10 +19,10 @@ public class IndexerTest {
 
     assertEquals(4, indexer.size());
     assertAll(
-        () -> assertIterableEquals(List.of("first", "second"), (Iterable<String>) () -> indexer.index("Ala")),
-        () -> assertIterableEquals(List.of("first", "second"), (Iterable<String>) () -> indexer.index("ma")),
-        () -> assertIterableEquals(List.of("first"), (Iterable<String>) () -> indexer.index("kota")),
-        () -> assertIterableEquals(List.of("second"), (Iterable<String>) () -> indexer.index("psa"))
+        () -> assertIterableEquals(List.of("first", "second"), (Iterable<String>) () -> indexer.getFileNames("Ala")),
+        () -> assertIterableEquals(List.of("first", "second"), (Iterable<String>) () -> indexer.getFileNames("ma")),
+        () -> assertIterableEquals(List.of("first"), (Iterable<String>) () -> indexer.getFileNames("kota")),
+        () -> assertIterableEquals(List.of("second"), (Iterable<String>) () -> indexer.getFileNames("psa"))
     );
   }
 

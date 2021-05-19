@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
-public class RankerTest {
+public class TopRankCalculatorTest {
 
   @Test
   void shouldReturnEmptyResultOnEmptyLine() {

@@ -1,6 +1,6 @@
 package com.company.ranking;
 
-import com.company.ranking.index.Indexer;
+import com.company.ranking.index.TokensIndex;
 import com.company.ranking.rank.RankCalculator;
 import com.company.ranking.rank.TopRankCalculator;
 import com.company.ranking.rank.TopRankCalculator.RankEntry;
@@ -21,19 +21,25 @@ public class Main {
       System.exit(-1);
     }
 
-    Indexer indexer = new Indexer();
+    TokensIndex tokensIndex = buildTokensIndexFromDirPath(Paths.get(args[0]));
+    parseInputAndSearchLoop(tokensIndex);
+  }
 
-    Path pathToDirWithTextFiles = Paths.get(args[0]);
+  private static TokensIndex buildTokensIndexFromDirPath(Path pathToDirWithTextFiles) throws IOException {
+    TokensIndex tokensIndex = new TokensIndex();
     try (DirectoryStream<Path> fileInDirStream = Files.newDirectoryStream(pathToDirWithTextFiles)) {
       int filesReadCounter = 0;
       for (Path pathToFile : fileInDirStream) {
-        indexer.appendToIndex(pathToFile.toFile().getName(), new Scanner(pathToFile));
+        tokensIndex.appendToIndex(pathToFile.toFile().getName(), new Scanner(pathToFile));
         filesReadCounter++;
       }
       System.out.printf("%d files read in directory %s%n", filesReadCounter, pathToDirWithTextFiles);
     }
+    return tokensIndex;
+  }
 
-    TopRankCalculator rankCalculator = new TopRankCalculator(new RankCalculator(indexer));
+  private static void parseInputAndSearchLoop(TokensIndex tokensIndex) {
+    TopRankCalculator rankCalculator = new TopRankCalculator(new RankCalculator(tokensIndex));
     Scanner stdInputScanner = new Scanner(System.in);
 
     while (true) {
@@ -42,8 +48,10 @@ public class Main {
       if (QUIT_COMMAND.equals(input)) {
         break;
       }
-      List<RankEntry> rankEntries = rankCalculator.topTen(input);
-      printOutput(rankEntries);
+      if (!input.isBlank()) {
+        List<RankEntry> rankEntries = rankCalculator.topTen(input);
+        printOutput(rankEntries);
+      }
     }
   }
 
