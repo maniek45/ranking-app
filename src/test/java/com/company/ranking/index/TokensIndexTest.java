@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 import org.junit.jupiter.api.Test;
 
-public class TokenIndexTest {
+public class TokensIndexTest {
 
   TokensIndex indexer = new TokensIndex();
 

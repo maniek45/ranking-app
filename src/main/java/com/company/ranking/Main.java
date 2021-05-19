@@ -17,7 +17,7 @@ public class Main {
 
   public static void main(String[] args) throws IOException {
     if (args.length < 1) {
-      System.err.println("Usage: java -jar <jar_name> " + Main.class.getName() + " <dir_with_text_files>");
+      System.err.println("Usage: java -jar <jar_name> <dir_with_text_files>");
       System.exit(-1);
     }
 

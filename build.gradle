@@ -26,10 +26,16 @@ dependencies {
     'org.junit.jupiter:junit-jupiter-engine:5.7.1',
     'org.junit.platform:junit-platform-launcher:1.7.1'
   )
-
 }
 
 test {
   useJUnitPlatform()
 }
 
+jar {
+  manifest {
+    attributes(
+      'Main-Class': 'com.company.ranking.Main'
+    )
+  }
+}
